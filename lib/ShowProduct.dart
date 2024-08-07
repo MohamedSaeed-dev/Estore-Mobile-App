@@ -26,6 +26,10 @@ class _ShowProductState extends State<ShowProduct> {
           IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
         ],
       ),
+
+
+// Container(decoration:BoxDecoration(image:DecorationImage(image:FileImage(File("url")))))
+
       body: SafeArea(
           child: SingleChildScrollView(
         child: Container(

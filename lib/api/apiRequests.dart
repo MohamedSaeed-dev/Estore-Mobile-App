@@ -5,12 +5,14 @@ import 'package:http/http.dart' as http;
 
 Future login(Map data) async {
   try {
-    var response = await http.post(Uri.parse(login_Url), body: data);
+    var bodyEncoded = jsonEncode(data);
+    var response = await http.post(Uri.parse(login_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -19,12 +21,14 @@ Future login(Map data) async {
 
 Future signup(Map data) async {
   try {
-    var response = await http.post(Uri.parse(signup_Url), body: data);
-    if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
+    var bodyEncoded = jsonEncode(data);
+    var response = await http.post(Uri.parse(signup_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
+    if (response.statusCode == 201) {
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -36,11 +40,11 @@ Future getAccountById(String id) async {
     var response = await http.get(
       Uri.parse("$getAccountById_Url?id=$id"),
     );
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return data;
+      return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -49,12 +53,14 @@ Future getAccountById(String id) async {
 
 Future updateAccount(Map data) async {
   try {
-    var response = await http.post(Uri.parse(updateAccount_Url), body: data);
+    var bodyEncoded = jsonEncode(data);
+    var response = await http.put(Uri.parse(updateAccount_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -64,11 +70,11 @@ Future updateAccount(Map data) async {
 Future getAllProductsById(String id) async {
   try {
     var response = await http.get(Uri.parse('$getAllProductById_Url?id=$id'));
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      return data;
+      return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -77,12 +83,14 @@ Future getAllProductsById(String id) async {
 
 Future addProduct(Map data) async {
   try {
-    var response = await http.post(Uri.parse(addProduct_Url), body: data);
-    if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
+    var bodyEncoded = jsonEncode(data);
+    var response = await http.post(Uri.parse(addProduct_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
+    if (response.statusCode == 201) {
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -91,12 +99,14 @@ Future addProduct(Map data) async {
 
 Future updateProduct(Map data) async {
   try {
-    var response = await http.post(Uri.parse(updateProduct_Url), body: data);
+    var bodyEncoded = jsonEncode(data);
+    var response = await http.put(Uri.parse(updateProduct_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};
@@ -105,13 +115,14 @@ Future updateProduct(Map data) async {
 
 Future deleteProduct(String id) async {
   try {
-    var response =
-        await http.post(Uri.parse(deleteProduct_Url), body: {"id": id});
+    var bodyEncoded = jsonEncode({"id": id});
+    var response = await http.delete(Uri.parse(deleteProduct_Url),
+        headers: {"Content-Type": "application/json"}, body: bodyEncoded);
+    var result = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
       return result;
     } else {
-      return {'status': "fail", 'message': 'Request failed'};
+      return {'status': "fail", 'message': result["message"]};
     }
   } catch (e) {
     return {'status': "fail", 'message': 'something went wrong'};

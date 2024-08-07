@@ -21,11 +21,11 @@ class _ProductsState extends State<Products> {
         ),
         drawer: Drawer(
           child: Container(
-            child: Column(children: [
+            child: ListView(children: [
               Container(
                 width: double.infinity,
                 height: 200,
-                margin: EdgeInsets.only(top: 50),
+                margin: EdgeInsets.only(bottom: 40),
                 color: Color(0xFF00B7A5),
                 child: Container(
                     alignment: Alignment.bottomLeft,
@@ -198,6 +198,14 @@ class _ProductsState extends State<Products> {
                       }
                       if (!snapshot.hasData) {
                         return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      if (snapshot.data["products"] == null) {
+                        return Center(
+                            child: Text(
+                          'No such Products!',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ));
                       }
                       if (snapshot.hasData) {
                         List products = snapshot.data["products"];
